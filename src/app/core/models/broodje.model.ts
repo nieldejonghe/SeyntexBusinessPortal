@@ -1,4 +1,4 @@
-export class Brood {
+export class Broodje {
   name: string;
   description: string;
 }

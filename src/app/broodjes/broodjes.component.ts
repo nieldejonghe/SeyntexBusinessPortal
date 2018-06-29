@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Brood} from '../brood';
-import { BroodService} from '../brood.service';
+import { Broodje } from '../core';
+import { BroodjeService} from "../core";
 
 @Component({
   selector: 'app-broodjes',
@@ -8,29 +8,18 @@ import { BroodService} from '../brood.service';
   styleUrls: ['./broodjes.component.css']
 })
 export class BroodjesComponent implements OnInit {
-  broodjes: Brood[];
+  broodjes: Broodje[];
 
-
-
-  //Broodservice initialiseren
-  constructor(private broodService: BroodService) { }
+  // BroodjesService gebruiken in deze component
+  constructor(private broodService: BroodjeService) { }
 
   ngOnInit() {
+    this.getBroodjes();
   }
 
-  //test changes
-
-  getBroodjes(): void{
-
-    //wat is subscribe?
-    //Points naar getBroodjes in broodService class
-    this.broodService.getBroodjes().subscribe(broodjes => this.broodjes = broodjes)
-
-
+  getBroodjes(): void {
+    // wat is subscribe? - Subscriben op eventuele changes. Denk aan YouTube: je subscribet op iemand om te weten wanneer een nieuwe video komt
+    this.broodService.getBroodjes().subscribe(broodjes => this.broodjes = broodjes);
   }
-
-  //opties W:wit B:bruin ZG; zonder groenten MG: met groenten
-
-  //broodjes[naam, omschrijving]
 
 }

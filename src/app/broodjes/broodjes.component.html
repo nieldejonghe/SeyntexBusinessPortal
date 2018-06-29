@@ -1,6 +1,6 @@
-<p>dit is broodjes pagina</p>
-<li *ngFor="let brood of broodjes">
-
-    <span>{{brood.name}}</span> {{brood.description}}
-
-</li>
+<p>dit is broodjes</p>
+<ul class="broodjes">
+  <li *ngFor="let broodje of broodjes">
+    <span class="badge">{{broodje.id}}</span> {{broodje.name}}  {{broodje.description}}
+  </li>
+</ul>
