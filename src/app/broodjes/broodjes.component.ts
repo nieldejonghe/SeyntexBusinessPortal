@@ -18,7 +18,7 @@ export class BroodjesComponent implements OnInit {
   ngOnInit() {
   }
 
-  //test change
+  //test changes
 
   getBroodjes(): void{
 
