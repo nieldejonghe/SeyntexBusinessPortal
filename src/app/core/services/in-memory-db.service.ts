@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
+import { Broodje} from '../models';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +11,7 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
  */
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    const broodjes = [
+    const broodjes: Broodje[] = [
       { id: 1, name: 'Atlantic', description: 'met grijze garnalen, plakjes zalm, heilbot, ei, komkommer en tomaat'},
       { id: 2, name: 'Ham', description: 'met ham'},
       { id: 3, name: 'Club Zalm', description: 'met kruidenkaas, gerookte zalm, tomaat en cressonette'},
