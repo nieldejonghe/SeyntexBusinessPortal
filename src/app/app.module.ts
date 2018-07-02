@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { AppComponent } from './app.component';
 import { BroodjesComponent } from './broodjes/broodjes.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from "./core/core.module";
+import { CoreModule } from "./core";
+import { SharedModule} from "./shared";
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { CoreModule } from "./core/core.module";
   imports: [
     BrowserModule,
     CoreModule,
+    SharedModule,
     AppRoutingModule,
     FormsModule
   ],
