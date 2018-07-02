@@ -1,6 +1,29 @@
-<p>dit is broodjes</p>
-<ul class="broodjes">
-  <li *ngFor="let broodje of broodjes">
-    <span class="badge">{{broodje.id}}</span> {{broodje.name}}  {{broodje.description}}
+<h1>Bestel broodjes</h1>
+
+<label> {{gekozenBroodjename}}</label>
+
+<select (change)="selectedType($event.target.value)" >
+  <option value=true>Wit</option>
+  <option value=false>Bruin</option>
+</select>
+
+<select (change)="selectedGreens($event.target.value)">
+  <option value=true>Met Groentjes</option>
+  <option value=false>Zonder Groentjes</option>
+</select>
+
+<input type="text" #comments>
+
+<button (click)="bestel(comments.value)">bestel</button>
+
+<ul class="broodjes" >
+  <li *ngFor="let broodje of broodjes" (click)="selectBroodje(broodje)">
+    <span class="broodjes" >{{broodje.name}} :         </span>
+    <span class="broodjes"> {{broodje.description}}</span>
   </li>
 </ul>
+
+
+
+
+
