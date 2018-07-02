@@ -1,11 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import { merge, Observable, of as observableOf } from 'rxjs';
+import { merge, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
 import { Broodje } from '../core';
 import { BroodjeService} from "../core";
 
+
+interface SandwichOrder extends Broodje {
+  ordered: boolean,
+}
 
 @Component({
   selector: 'app-broodjes',
@@ -13,21 +17,17 @@ import { BroodjeService} from "../core";
   styleUrls: ['./broodjes.component.css']
 })
 export class BroodjesComponent implements OnInit {
-
-  broodjes: Broodje[];
-  gekozenBroodje: Broodje;
   greens: boolean;
   type: boolean;
   comments: string;
   //label
-  gekozenBroodjename: string;
 
   // Table
-  displayedColumns: string[] = ['id', 'name', 'description'];
+  displayedColumns: string[] = ['id', 'name', 'description', 'ordered', 'vegetable'];
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  dataSource: MatTableDataSource<Broodje>;
+  dataSource: MatTableDataSource<SandwichOrder>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -57,7 +57,7 @@ export class BroodjesComponent implements OnInit {
           this.isLoadingResults = false;
           this.isRateLimitReached = false;
           this.resultsLength = data.length;
-          return data;
+          return data.map((broodje: Broodje) => this.makeOrderSandwich(broodje));
         }),
         catchError(() => {
           this.isLoadingResults = false;
@@ -81,60 +81,35 @@ export class BroodjesComponent implements OnInit {
     }
   }
 
-  getBroodjes(): void {
-    // wat is subscribe? - Subscriben op eventuele changes. Denk aan YouTube: je subscribet op iemand om te weten wanneer een nieuwe video komt
-    this.broodService.getBroodjes().subscribe(broodjes => this.broodjes = broodjes);
+  makeOrderSandwich(broodje: Broodje):SandwichOrder {
+    return Object.assign({}, broodje, {ordered: false});
   }
-
-  selectedGreens(greens: boolean): void{
-    //this.gekozenBroodje.greens = greens;
-    console.log(greens)
-    this.gekozenBroodje.greens = greens;
+  isAnySelectedOrder() {
+    return this.dataSource.data.some((order: SandwichOrder) => {return order.ordered})
   }
-
-  selectedType(type: boolean): void{
-    this.gekozenBroodje.type = type;
-    console.log(type)
+  isAllSelectedOrder() {
+    return this.dataSource.data.every((order: SandwichOrder) => {return order.ordered})
   }
-
-
-  selectBroodje(broodje: Broodje): void{
-
-    //save the chosen object for later use
-    this.gekozenBroodje = broodje;
-
-    //change text in label with name propery of chosen object
-    this.gekozenBroodjename  = broodje.name
-
+  masterToggleOrder() {
+    let select_value = true;
+    if (this.isAllSelectedOrder())
+      select_value = false;
+    return this.dataSource.data.forEach((order:SandwichOrder) => {
+      order.ordered = select_value
+    });
   }
-  bestel(comments: string): void {
-
-
-    //catch not selecting sandwich
-
-
-
-    //adding chosen properties to chosen object broodje
-    //console.log(comments)
-
-    this.comments = comments;
-    this.gekozenBroodje.comments = this.comments;
-
-
-    if(this.gekozenBroodje.type == true){}
-    else{}
-
-    if(this.gekozenBroodje.greens == true){}
-    else{}
-
-
-      //confirming broodjes order
-
-      if(confirm( this.gekozenBroodje.name + " " + this.gekozenBroodje.type + " " + this.gekozenBroodje.greens + " bestellen?")) {
-        //account.addbroodje(broodje object);
-      }
-
-
+  isAnySelectedVegatable() {
+    return this.dataSource.data.some((order: SandwichOrder) => {return order.greens})
   }
-
+  isAllSelectedVegatable() {
+    return this.dataSource.data.every((order: SandwichOrder) => {return order.greens})
+  }
+  masterToggleVegatable() {
+    let select_value = true;
+    if (this.isAllSelectedVegatable())
+      select_value = false;
+    return this.dataSource.data.forEach((order:SandwichOrder) => {
+      order.sandwich.greens = select_value
+    });
+  }
 }
