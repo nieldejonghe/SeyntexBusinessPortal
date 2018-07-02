@@ -16,7 +16,7 @@ export class BroodjeService {
   constructor(private api: ApiService) { }
 
   // Returns the mocked data if working on test. Contents are found in in-memory-db.service
-  getBroodjes(): Observable<Broodje[]> {
+  getBroodjes(...args): Observable<Broodje[]> {
     return this.api.get(this.broodjesUrl);
   }
 }
