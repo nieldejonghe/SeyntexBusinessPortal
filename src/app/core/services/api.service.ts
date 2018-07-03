@@ -25,31 +25,44 @@ export class ApiService {
     private http: HttpClient,
   ) {}
 
-  private formatErrors(error: any) {
-    return throwError(new Error(error.error));
+  // Currently using any type of error since the in-memory-web is returning something special :)
+  private handleError(error: any) {
+  if (error.error instanceof ErrorEvent) {
+    // A client-side or network error occurred. Handle it accordingly.
+    console.error('An error occurred:', error.error.message);
+  } else if (error.body) {
+    // in memory db
+    console.error(`Backend returned code ${error.status}, ` +  `body was: ${error.body.error}`);
+  } else {
+    // The backend returned an unsuccessful response code.
+    // The response body may contain clues as to what went wrong,
+    console.error(`Backend returned code ${error.status}, ` +  `body was: ${error.message}`);
   }
+  // return an observable with a user-facing error message
+  return throwError('Something bad happened; please try again later.');
+};
 
   get<T>(path: string, params: HttpParams = new HttpParams()): Observable<T> {
       return this.http.get<T>(`${environment.api_url}${path}`, { params })
-        .pipe(catchError(this.formatErrors));
+        .pipe(catchError(this.handleError));
   }
   put<T>(path: string, body: Object = {}): Observable<any> {
     return this.http.put<T>(
       `${environment.api_url}${path}`,
       JSON.stringify(body)
-    ).pipe(catchError(this.formatErrors));
+    ).pipe(catchError(this.handleError));
   }
 
   post<T>(path: string, body: Object = {}): Observable<any> {
     return this.http.post<T>(
       `${environment.api_url}${path}`,
       JSON.stringify(body)
-    ).pipe(catchError(this.formatErrors));
+    ).pipe(catchError(this.handleError));
   }
 
   delete<T>(path): Observable<any> {
     return this.http.delete<T>(
       `${environment.api_url}${path}`
-    ).pipe(catchError(this.formatErrors));
+    ).pipe(catchError(this.handleError));
   }
 }

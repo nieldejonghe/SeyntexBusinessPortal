@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
-import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { ParsedRequestUrl, RequestInfo, RequestInfoUtilities, ResponseOptions, STATUS, getStatusText} from "angular-in-memory-web-api";
+import {
+  InMemoryDbService,
+  RequestInfo,
+  ResponseOptions,
+  STATUS,
+  getStatusText
+} from "angular-in-memory-web-api";
 
 import { User, Broodje } from '../models';
 
@@ -52,8 +57,8 @@ export class InMemoryDataService implements InMemoryDbService {
   // HTTP POST interceptor
   post(reqInfo: RequestInfo) {
     const url = reqInfo.url;
-    if (url === 'api/users/login') {
-
+    if (url.endsWith('/users/login')) {
+      return this.login(reqInfo)
     }
     return undefined; // let the default GET handle all others
   }
@@ -76,18 +81,16 @@ export class InMemoryDataService implements InMemoryDbService {
     return reqInfo.utils.createResponse$(() => {
       console.log('Login override');
       const users = dataUsers.slice();  // Copy
-      const id = reqInfo.id;
-
-      // tslint:disable-next-line:triple-equals
-      const userData = reqInfo.utils.findById(users, id);
-      const tokenData = {};
+      const data: {username: string, password: string} = JSON.parse(reqInfo.utils.getJsonBody(reqInfo.req));
+      const userData = users.find((user) => user.username == data.username && user.password == user.password);
+      delete userData.password;  // Remove
       const options: ResponseOptions = userData ?
         {
-          body: this.wrapData(reqInfo, tokenData),
+          body: this.wrapData(reqInfo, userData),
           status: STATUS.OK
         } :
         {
-          body: { error: `'Villains' with id='${id}' not found` },
+          body: { error: `'User with username ${data.username} not found` },
           status: STATUS.NOT_FOUND
         };
       return this.finishOptions(options, reqInfo);

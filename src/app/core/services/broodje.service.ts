@@ -19,4 +19,8 @@ export class BroodjeService {
   getBroodjes(...args): Observable<Broodje[]> {
     return this.api.get(this.broodjesUrl);
   }
+  // Returns the mocked data if working on test. Contents are found in in-memory-db.service
+  getBroodje(id:number, ...args): Observable<Broodje[]> {
+    return this.api.get(`${this.broodjesUrl}/${id}`);
+  }
 }
