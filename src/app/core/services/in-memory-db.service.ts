@@ -30,8 +30,8 @@ export class InMemoryDataService implements InMemoryDbService {
     ];
 
     const users: User[] = [
-      { initials: "ndj", password: "notadmin", firstname: "Niel", lastname: "Dejonghe", email: "nieldejonghe@seyntex.com"},
-      { initials: "ave", password: "notadmin2", firstname: "Alexandre", lastname: "Verhoost", email: "ave@seyntex.com"}
+      { id: 1, initials: "ndj", password: "notadmin", firstname: "Niel", lastname: "Dejonghe", email: "nieldejonghe@seyntex.com"},
+      { id: 2, initials: "ave", password: "notadmin2", firstname: "Alexandre", lastname: "Verhoost", email: "ave@seyntex.com"}
     ];
     return {broodjes,users};
   }
