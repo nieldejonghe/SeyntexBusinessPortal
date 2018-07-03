@@ -109,7 +109,7 @@ export class BroodjesComponent implements OnInit {
     if (this.isAllSelectedVegatable())
       select_value = false;
     return this.dataSource.data.forEach((order:SandwichOrder) => {
-      order.sandwich.greens = select_value
+      order.greens = select_value
     });
   }
 }
