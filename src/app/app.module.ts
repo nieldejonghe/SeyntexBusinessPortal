@@ -6,11 +6,15 @@ import { BroodjesComponent } from './broodjes/broodjes.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from "./core";
 import { SharedModule} from "./shared";
+import { LoginComponent } from './login/login.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BroodjesComponent
+    BroodjesComponent,
+    LoginComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

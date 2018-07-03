@@ -10,7 +10,7 @@ const routes: Routes = [
 @NgModule({
   exports: [ RouterModule ],
 
-  // why this ?
+  // Initializing router: starts listening for browser location changes
   imports: [ RouterModule.forRoot(routes) ]
 })
 export class AppRoutingModule { }

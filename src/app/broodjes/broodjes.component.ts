@@ -15,9 +15,8 @@ export class BroodjesComponent implements OnInit {
   greens: boolean;
   type: boolean;
   comments: string;
-  //label
+  //two way data binding label
   gekozenBroodjename: string;
-
 
   // BroodjesService gebruiken in deze component
   constructor(private broodService: BroodjeService) {
@@ -25,8 +24,6 @@ export class BroodjesComponent implements OnInit {
     this.type = true;
     this.comments = "";
   }
-
-
 
   ngOnInit() {
     this.getBroodjes();
@@ -38,16 +35,27 @@ export class BroodjesComponent implements OnInit {
   }
 
   selectedGreens(greens: boolean): void{
-    //this.gekozenBroodje.greens = greens;
-    console.log(greens)
-    this.gekozenBroodje.greens = greens;
+
+    try {
+
+      this.gekozenBroodje.greens = greens;
+      console.log(greens)
+    }
+    catch {
+      console.log("selecteer broodje")
+    }
   }
 
   selectedType(type: boolean): void{
-    this.gekozenBroodje.type = type;
-    console.log(type)
-  }
 
+    try {
+      this.gekozenBroodje.type = type;
+      console.log(type)
+    }
+    catch {
+      console.log("selecteer broodje")
+    }
+  }
 
   selectBroodje(broodje: Broodje): void{
 
@@ -60,28 +68,36 @@ export class BroodjesComponent implements OnInit {
   }
   bestel(comments: string): void {
 
-
-    //catch not selecting sandwich
-
-
-
     //adding chosen properties to chosen object broodje
     //console.log(comments)
+
+    var typetext
+    var greenstext
+
+
+
 
     this.comments = comments;
     this.gekozenBroodje.comments = this.comments;
 
 
-    if(this.gekozenBroodje.type == true){}
-    else{}
+    if(this.gekozenBroodje.type == true){
+      typetext = "Wit"
+    }
+    else{
+      typetext = "Bruin"
+    }
 
-    if(this.gekozenBroodje.greens == true){}
-    else{}
+    if(this.gekozenBroodje.greens == true){
+      greenstext = "Met Groentjes"
+    }
+    else{
+      greenstext = "Zonder Groentjes"
+    }
 
 
       //confirming broodjes order
-
-      if(confirm( this.gekozenBroodje.name + " " + this.gekozenBroodje.type + " " + this.gekozenBroodje.greens + " bestellen?")) {
+      if(confirm( this.gekozenBroodje.name + ", " + typetext + ", " + greenstext + " bestellen?")) {
         //account.addbroodje(broodje object);
       }
 
