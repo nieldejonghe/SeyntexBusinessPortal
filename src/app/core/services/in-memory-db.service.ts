@@ -7,12 +7,12 @@ import {
   getStatusText
 } from "angular-in-memory-web-api";
 
-import { User, Broodje } from '../models';
+import { User, Sandwich } from '../models';
 
 /**
  * Data
  */
-const dataBroodjes: Broodje[] = [
+const dataBroodjes: Sandwich[] = [
   { id: 1, name: 'Atlantic', description: 'met grijze garnalen, plakjes zalm, heilbot, ei, komkommer en tomaat'},
   { id: 2, name: 'Ham', description: 'met ham'},
   { id: 3, name: 'Club Zalm', description: 'met kruidenkaas, gerookte zalm, tomaat en cressonette'},

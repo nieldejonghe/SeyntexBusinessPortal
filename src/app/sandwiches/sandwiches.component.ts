@@ -3,20 +3,20 @@ import { MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { merge, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
-import { Broodje } from '../core';
+import { Sandwich } from '../core';
 import { BroodjeService} from "../core";
 
 
-interface SandwichOrder extends Broodje {
+interface SandwichOrder extends Sandwich {
   ordered: boolean,
 }
 
 @Component({
-  selector: 'app-broodjes',
-  templateUrl: './broodjes.component.html',
-  styleUrls: ['./broodjes.component.css']
+  selector: 'app-sandwiches',
+  templateUrl: './sandwiches.component.html',
+  styleUrls: ['./sandwiches.component.css']
 })
-export class BroodjesComponent implements OnInit {
+export class SandwichesComponent implements OnInit {
   greens: boolean;
   type: boolean;
   comments: string;
@@ -57,7 +57,7 @@ export class BroodjesComponent implements OnInit {
           this.isLoadingResults = false;
           this.isRateLimitReached = false;
           this.resultsLength = data.length;
-          return data.map((broodje: Broodje) => this.makeOrderSandwich(broodje));
+          return data.map((broodje: Sandwich) => this.makeOrderSandwich(broodje));
         }),
         catchError(() => {
           this.isLoadingResults = false;
@@ -81,7 +81,7 @@ export class BroodjesComponent implements OnInit {
     }
   }
 
-  makeOrderSandwich(broodje: Broodje):SandwichOrder {
+  makeOrderSandwich(broodje: Sandwich):SandwichOrder {
     return Object.assign({}, broodje, {ordered: false});
   }
   isAnySelectedOrder() {

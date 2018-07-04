@@ -1,4 +1,4 @@
-export class Broodje {
+export class Sandwich {
   id: number;
   name: string;
   description: string;

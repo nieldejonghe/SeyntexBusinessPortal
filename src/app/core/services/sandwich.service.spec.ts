@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { BroodjeService } from './broodje.service';
+import { BroodjeService } from './sandwich.service';
 
 describe('BroodService', () => {
   beforeEach(() => {
