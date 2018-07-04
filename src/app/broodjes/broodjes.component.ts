@@ -71,8 +71,8 @@ export class BroodjesComponent implements OnInit {
     //adding chosen properties to chosen object broodje
     //console.log(comments)
 
-    var typetext
-    var greenstext
+    let typetext = "";
+    let greenstext= "";
 
 
 
@@ -81,18 +81,22 @@ export class BroodjesComponent implements OnInit {
     this.gekozenBroodje.comments = this.comments;
 
 
-    if(this.gekozenBroodje.type == true){
+    if(this.gekozenBroodje.type){
       typetext = "Wit"
+      console.log(typetext)
     }
     else{
       typetext = "Bruin"
+      console.log(typetext)
     }
 
-    if(this.gekozenBroodje.greens == true){
+    if(this.gekozenBroodje.greens){
       greenstext = "Met Groentjes"
+      console.log(greenstext)
     }
     else{
       greenstext = "Zonder Groentjes"
+      console.log(greenstext)
     }
 
 

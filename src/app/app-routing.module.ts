@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BroodjesComponent } from './broodjes/broodjes.component';
+import { LoginComponent} from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 
 
+
 const routes: Routes = [
-  {path: 'broodjes' , component: BroodjesComponent}
+  {path: 'broodjes' , component: BroodjesComponent},
+  {path: 'login' , component: LoginComponent}
   ];
 
 @NgModule({
