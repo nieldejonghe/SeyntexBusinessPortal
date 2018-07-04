@@ -11,19 +11,16 @@ import { BroodjeService} from "../core";
 export class BroodjesComponent implements OnInit {
 
   broodjes: Broodje[];
-  gekozenBroodje: Broodje;
-  greens: boolean;
-  type: boolean;
-  comments: string;
-  //two way data binding label
-  gekozenBroodjename: string;
+  // Generic item to contain the options chosen in the model
+  broodjeOpties: Broodje = {id: -1, name: '', description: '', greens: true, type: true};
+  // Options - mapping string to the value on the model
+  greensOptions: {value: boolean, display: string}[] = [{value: true, display:'Groenten'}, {value: false, display: 'Geen groenten'}];
+  typeOptions: {value: boolean, display: string}[] = [{value: true, display:'Wit'}, {value: false, display: 'Bruin'}];
+  // Chosen sandwich from the list
+  gekozenBroodje: Broodje = new Broodje();
 
   // BroodjesService gebruiken in deze component
-  constructor(private broodService: BroodjeService) {
-    this.greens = true;
-    this.type = true;
-    this.comments = "";
-  }
+  constructor(private broodService: BroodjeService) { }
 
   ngOnInit() {
     this.getBroodjes();
@@ -31,77 +28,30 @@ export class BroodjesComponent implements OnInit {
 
   getBroodjes(): void {
     // wat is subscribe? - Subscriben op eventuele changes. Denk aan YouTube: je subscribet op iemand om te weten wanneer een nieuwe video komt
-    this.broodService.getBroodjes().subscribe(broodjes => this.broodjes = broodjes);
-  }
-
-  selectedGreens(greens: boolean): void{
-
-    try {
-
-      this.gekozenBroodje.greens = greens;
-      console.log(greens)
-    }
-    catch {
-      console.log("selecteer broodje")
-    }
-  }
-
-  selectedType(type: boolean): void{
-
-    try {
-      this.gekozenBroodje.type = type;
-      console.log(type)
-    }
-    catch {
-      console.log("selecteer broodje")
-    }
+    this.broodService.getBroodjes()
+      .subscribe(broodjes => this.broodjes = broodjes);
   }
 
   selectBroodje(broodje: Broodje): void{
-
     //save the chosen object for later use
     this.gekozenBroodje = broodje;
-
-    //change text in label with name propery of chosen object
-    this.gekozenBroodjename  = broodje.name
-
   }
-  bestel(comments: string): void {
-
-    //adding chosen properties to chosen object broodje
-    //console.log(comments)
-
-    let typetext = "";
-    let greenstext= "";
-
-
-
-
-    this.comments = comments;
-    this.gekozenBroodje.comments = this.comments;
-
-
-    if(this.gekozenBroodje.type){
-      typetext = "Wit"
-      console.log(typetext)
+  bestel(): void {
+    if (!this.gekozenBroodje.id) {
+      // No sandwich was ordered
+      throw new Error('Select a sandwich')
     }
-    else{
-      typetext = "Bruin"
-      console.log(typetext)
+    // Copy the selected sandwich to always have a fresh sandwich upon selecting a new one
+    let broodjeToOrder = Object.assign({}, this.gekozenBroodje);
+    const optionsToCopy = ['comments', 'greens', 'type'];
+    for (let opt of optionsToCopy) {
+      broodjeToOrder[opt] = this.broodjeOpties[opt]
     }
-
-    if(this.gekozenBroodje.greens){
-      greenstext = "Met Groentjes"
-      console.log(greenstext)
-    }
-    else{
-      greenstext = "Zonder Groentjes"
-      console.log(greenstext)
-    }
-
-
+    console.log(broodjeToOrder);
+    const typeText = this.typeOptions.find((opt) => opt.value == broodjeToOrder.type).display;
+    const greenText = this.greensOptions.find((opt) => opt.value == broodjeToOrder.greens).display;
       //confirming broodjes order
-      if(confirm( this.gekozenBroodje.name + ", " + typetext + ", " + greenstext + " bestellen?")) {
+      if(confirm( broodjeToOrder.name + ", " + typeText + ", " + greenText + " bestellen?")) {
         //account.addbroodje(broodje object);
       }
 
