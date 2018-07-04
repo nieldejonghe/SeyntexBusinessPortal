@@ -1,20 +1,17 @@
 <h1>Bestel broodjes</h1>
 
-<label> {{gekozenBroodjename || "Selecteer broodje"}}</label>
+<label> {{gekozenBroodje.name || "Selecteer broodje"}}</label>
 
-<select (change)="selectedType($event.target.value)" >
-  <option value=true>Wit</option>
-  <option value=false>Bruin</option>
+<!--Bind to the sandwich options object. This way all the hassle with switching items is solved-->
+<select [(ngModel)]="broodjeOpties.type" >
+  <option *ngFor="let opt of typeOptions" [ngValue]='opt.value' [selected]="broodjeOpties.type == opt.value">{{opt.display}}</option>
 </select>
-
-<select (change)="selectedGreens($event.target.value)">
-  <option value=true>Met Groentjes</option>
-  <option value=false>Zonder Groentjes</option>
+<select [(ngModel)]="broodjeOpties.greens">
+  <option *ngFor="let opt of greensOptions" [ngValue]='opt.value' [selected]="broodjeOpties.greens == opt.value">{{opt.display}}</option>
 </select>
+<input type="text" [(ngModel)]="broodjeOpties.comments">
 
-<input type="text" #comments>
-
-<button (click)="bestel(comments.value)">bestel</button>
+<button (click)="bestel()">bestel</button>
 
 <ul class="broodjes" >
   <li *ngFor="let broodje of broodjes" (click)="selectBroodje(broodje)">
