@@ -55,17 +55,9 @@ export class InMemoryDataService implements InMemoryDbService {
   //DELETE: delete
 
   //reqInfo: RequestInfo = typical for in-mem-db-services
-
-
-
-
-
-
   //mocked method intercepts and reads username and password that you send via authservice to service
   //does a lockup based on properties of userobject
   //look if they match and returns the user + token
-
-
 
   // HTTP GET interceptor
   get(reqInfo: RequestInfo) {
@@ -95,7 +87,6 @@ export class InMemoryDataService implements InMemoryDbService {
   responseInterceptor(resOptions: ResponseOptions, reqInfo: RequestInfo) {
     return resOptions;
   }
-
   /**
    * Post Mocks
    */
@@ -103,22 +94,22 @@ export class InMemoryDataService implements InMemoryDbService {
     return reqInfo.utils.createResponse$(() => {
       console.log('Login override');
       const users = dataUsers.slice();  // Copy
+      const data: {username: string, password: string} = JSON.parse(reqInfo.utils.getJsonBody(reqInfo.req));
+      const userData = users.find((user) => user.initials == data.username && user.password == user.password);
 
-      //Data that gets send by Http client is in JSON format, parsing the JSON input to object
-      //JSON is a syntax for storing and exchanging data.
-
-      const data: {initials: string, password: string} = JSON.parse(reqInfo.utils.getJsonBody(reqInfo.req));
-      const userData = users.find((user) => user.initials == data.initials && user.password == user.password);
-      delete userData.password;  // Remove
-      const options: ResponseOptions = userData ?
-        {
+      let options: ResponseOptions;
+      if (userData) {
+        delete userData.password;  // Remove
+        options = {
           body: this.wrapData(reqInfo, userData),
           status: STATUS.OK
-        } :
-        {
-          body: { error: `'User with username ${data.initials} not found` },
+        }
+      } else {
+        options = {
+          body: { error: `'User with username ${data.username} not found` },
           status: STATUS.NOT_FOUND
-        };
+        }
+      }
       return this.finishOptions(options, reqInfo);
     });
   }
