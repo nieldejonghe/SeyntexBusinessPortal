@@ -58,6 +58,15 @@ export class InMemoryDataService implements InMemoryDbService {
 
 
 
+
+
+
+  //mocked method intercepts and reads username and password that you send via authservice to service
+  //does a lockup based on properties of userobject
+  //look if they match and returns the user + token
+
+
+
   // HTTP GET interceptor
   get(reqInfo: RequestInfo) {
     return undefined; // let the default GET handle all others
