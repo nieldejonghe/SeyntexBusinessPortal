@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.userService.populate()  // Kick off user related items on startup
-    this.userService.login('admin2', 'admin').subscribe((user) => console.log(user))
+    this.userService.login({username:'admin2', password:'admin'}).subscribe((user) => console.log(user))
     // this.broodjsService.getBroodje(100).subscribe((broodje) => console.log(broodje))
   }
 }

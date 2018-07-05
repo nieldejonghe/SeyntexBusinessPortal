@@ -12,6 +12,7 @@ import {
   MatCheckboxModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowAuthedDirective } from './directives';
+import { ListErrorsComponent } from './components';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { ShowAuthedDirective } from './directives';
     MatCheckboxModule
   ],
   declarations: [
+    ListErrorsComponent,
     ShowAuthedDirective
   ],
   exports: [
@@ -44,7 +46,8 @@ import { ShowAuthedDirective } from './directives';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    ShowAuthedDirective
+    ListErrorsComponent,
+    ShowAuthedDirective,
   ]
 })
 export class SharedModule {}

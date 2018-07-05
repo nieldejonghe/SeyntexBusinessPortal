@@ -4,7 +4,7 @@ import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
 
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
-import { User } from '../models';
+import { Credentials, User } from '../models';
 import { map ,  distinctUntilChanged } from 'rxjs/operators';
 
 
@@ -57,8 +57,8 @@ export class UserService {
     this.isAuthenticatedSubject.next(false);
   }
 
-  login(username: string, password:string): Observable<User> {
-    return this.apiService.post<User>('/users/login', {username, password})
+  login(credentials: Credentials): Observable<User> {
+    return this.apiService.post<User>('/users/login', credentials)
       .pipe(map(
       user => {
         this.setAuth(user);
@@ -67,7 +67,7 @@ export class UserService {
     ));
   }
 
-  register(user: User) {
+  register(user: Credentials) {
     return this.apiService.post<User>('/users', user)
       .pipe(map(
       user => {

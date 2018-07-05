@@ -9,6 +9,7 @@ import {
   FooterComponent,
   SharedModule
 } from "./shared";
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {
     BrowserModule,
     CoreModule,
     SharedModule,
+    AuthModule,
     AppRoutingModule,
   ],
   providers: [],
