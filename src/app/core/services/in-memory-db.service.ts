@@ -29,8 +29,8 @@ const dataBroodjes: Broodje[] = [
   { id: 14, name: 'Kanibal', description: 'met americain, kaas, hotsaus (pikant), verse ui en waterkers'}
 ];
 const dataUsers: User[] = [
-  { id: 1, initials: 'ndj', password: 'notadmin', firstname: 'Niel', lastname: 'Dejonghe', email: 'ndj@test.be', token: 'abc'},
-  { id: 2, initials: 'admin', password: 'notadmin', firstname: 'Ad', lastname: 'Min', email: 'admin@test.be', token: 'abc'}
+  { id: 1, username: 'ndj', password: 'notadmin', firstname: 'Niel', lastname: 'Dejonghe', email: 'ndj@test.be', token: 'abc'},
+  { id: 2, username: 'admin', password: 'notadmin', firstname: 'Ad', lastname: 'Min', email: 'admin@test.be', token: 'abc'}
 ];
 
 @Injectable({
@@ -95,7 +95,7 @@ export class InMemoryDataService implements InMemoryDbService {
       console.log('Login override');
       const users = dataUsers.slice();  // Copy
       const data: {username: string, password: string} = JSON.parse(reqInfo.utils.getJsonBody(reqInfo.req));
-      const userData = users.find((user) => user.initials == data.username && user.password == user.password);
+      const userData = users.find((user) => user.username == data.username && user.password == user.password);
 
       let options: ResponseOptions;
       if (userData) {
