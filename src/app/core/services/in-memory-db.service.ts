@@ -83,16 +83,20 @@ export class InMemoryDataService implements InMemoryDbService {
       const users = dataUsers.slice();  // Copy
       const data: {username: string, password: string} = JSON.parse(reqInfo.utils.getJsonBody(reqInfo.req));
       const userData = users.find((user) => user.username == data.username && user.password == user.password);
-      delete userData.password;  // Remove
-      const options: ResponseOptions = userData ?
-        {
+
+      let options: ResponseOptions;
+      if (userData) {
+        delete userData.password;  // Remove
+        options = {
           body: this.wrapData(reqInfo, userData),
           status: STATUS.OK
-        } :
-        {
+        }
+      } else {
+        options = {
           body: { error: `'User with username ${data.username} not found` },
           status: STATUS.NOT_FOUND
-        };
+        }
+      }
       return this.finishOptions(options, reqInfo);
     });
   }
