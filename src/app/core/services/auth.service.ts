@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
   // URL where to fetch users
-  private usersUrl = 'ap/users/login';  // URL to web api
+  private usersUrl = 'api/users/login';  // URL to web api
 
   constructor(private api: ApiService) { }
 
