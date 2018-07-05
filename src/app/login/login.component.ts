@@ -11,7 +11,9 @@ export class LoginComponent implements OnInit {
 
 
   user: User;
-  constructor(private authservice: AuthService) { }
+
+  constructor(private authservice: AuthService) {
+  }
 
   ngOnInit() {
     // reset login status
@@ -19,8 +21,19 @@ export class LoginComponent implements OnInit {
   }
 
 
-  login(username: string,password: string): void {
-    console.log(username,password)
-    this.authservice.login(username,password).subscribe((user) => {this.user = user;console.log(user)})
+  login(username: string, password: string): void {
+    console.log(username, password)
+    this.authservice.login(username, password).subscribe((user) => {
+      this.user = user;
+      console.log(user)
+    })
   }
 }
+
+
+
+
+
+
+
+
