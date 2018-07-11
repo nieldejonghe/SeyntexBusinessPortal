@@ -4,14 +4,17 @@
 
 
 
-  <li *ngIf="loggedin$; else logout">
-    <a routerLink="/login">Login</a>
+  <li *ngIf="loggedin; else login">
+    <a (click)="logout()">Logout</a>
+    <a routerLink="/userdashboard">{{user.username}}</a>
   </li>
 
-  <ng-template #logout>
-    <a routerLink="/">Logout</a>
+  <ng-template #login>
+    <a routerLink="/login">Login</a>
   </ng-template>
 
-  <!--Or try with on click events and login / logout methods ->
+  <!--Or try with on click events and login / logout methods -->
+
+  <!-- <button (click)="logout()">Logout</button> -->
 </ul>
 

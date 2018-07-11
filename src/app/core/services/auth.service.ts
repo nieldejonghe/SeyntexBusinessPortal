@@ -19,9 +19,12 @@ export class AuthService {
   //BehaviourSubject holds the value, used to change menu items on navbar when login/logout
   //making the observable here so it doesn't create a new observable in the method that returns this observable
   private loggedInSubj = new BehaviorSubject<boolean>(false);
+  private loggedIn$ = this.loggedInSubj.asObservable();
 
-  private loggedIn$ = this.loggedInSubj.asObservable()
-
+  //BehaviourSubject to hold all information of currently logged in user
+  user: User;
+  private loggedInUserSubj = new BehaviorSubject<User>(this.user);
+  private loggedInUser$ = this.loggedInUserSubj.asObservable();
 
   constructor(private api: ApiService) { }
 
@@ -35,6 +38,8 @@ export class AuthService {
           //adds user to local storage so user keeps session in between browsing pages
           localStorage.setItem('loggedUser', JSON.stringify(user));
           this.loggedInSubj.next(this.getUserSession());
+
+          this.loggedInUserSubj.next(user);
         }
         return user // Return for further chaining
       })
@@ -51,11 +56,17 @@ export class AuthService {
   // '!!' = casting to boolean
   getUserSession(): boolean{
     return !!localStorage.getItem('loggedUser');
+  }
+
+  getUserInfo(): Observable<User>{
+
+    return this.loggedInUser$;
 
   }
 
-  //method to return state Behavioursubject loggedin, used to change menu items on navbar when login /logout
 
+
+  //method to return state Behavioursubject loggedin, used to change menu items on navbar when login /logout
   //don't return asObservable since this will create a new observable everytime you call this method
   isLoggedin(){
     return this.loggedIn$
