@@ -1,8 +1,17 @@
 <ul>
   <li><a routerLink="/">Home</a></li>
   <li><a routerLink="/broodjes">Broodjes bestellen</a></li>
-  <li><a routerLink="/login">Login</a></li>
-  <li><a routerLink="/login">Logout</a></li>
 
+
+
+  <li *ngIf="loggedin$; else logout">
+    <a routerLink="/login">Login</a>
+  </li>
+
+  <ng-template #logout>
+    <a routerLink="/">Logout</a>
+  </ng-template>
+
+  <!--Or try with on click events and login / logout methods ->
 </ul>
 
