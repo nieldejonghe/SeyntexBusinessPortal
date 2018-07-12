@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpHeaders} from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError} from 'rxjs/internal/operators';
 
 import { environment} from '../../../environments/environment';
 
+const cudOptions = {
+   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -49,14 +53,14 @@ export class ApiService {
   put<T>(path: string, body: Object = {}): Observable<any> {
     return this.http.put<T>(
       `${environment.api_url}${path}`,
-      JSON.stringify(body)
+      body, cudOptions
     ).pipe(catchError(this.handleError));
   }
 
   post<T>(path: string, body: Object = {}): Observable<any> {
     return this.http.post<T>(
       `${environment.api_url}${path}`,
-      JSON.stringify(body)
+      body, cudOptions
     ).pipe(catchError(this.handleError));
   }
 

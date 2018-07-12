@@ -100,7 +100,7 @@ export class InMemoryDataService implements InMemoryDbService {
     return reqInfo.utils.createResponse$(() => {
       console.log('Login mock works');
       const users = dataUsers.slice();  // Copy
-      const data: {username: string, password: string} = JSON.parse(reqInfo.utils.getJsonBody(reqInfo.req));
+      const data: {username: string, password: string} = reqInfo.utils.getJsonBody(reqInfo.req);
       const userData = users.find((user) => user.username == data.username && user.password == user.password);
 
       let options: ResponseOptions;
