@@ -83,11 +83,11 @@ export class BroodjesComponent implements OnInit {
 
         //create order with collected information
 
-        this.order.userid = userid;
-        this.order.broodjeid = broodjeid;
+        this.order.userid = 1;
+        this.order.broodjeid = 7;
         console.log('order' + this.order);
 
-        this.orderService.addOrder(this.order)
+        this.orderService.addOrder(this.order).subscribe();
 
       }
 

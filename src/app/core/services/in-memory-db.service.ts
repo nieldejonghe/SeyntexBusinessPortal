@@ -47,7 +47,7 @@ const dataOrders: Order[] = [
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     return {
-      broodjes:dataBroodjes,
+      broodjes: dataBroodjes,
       users: dataUsers,
       orders: dataOrders
     };

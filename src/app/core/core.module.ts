@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { environment } from '../../environments/environment';
-import { ApiService, BroodjeService, InMemoryDataService, AuthService} from './services';
+import { ApiService, BroodjeService, InMemoryDataService, AuthService, OrderService} from './services';
 import {UserService} from './services/user.service';
 
 @NgModule({
@@ -19,7 +19,8 @@ import {UserService} from './services/user.service';
     ApiService,
     BroodjeService,
     AuthService,
-    UserService
+    UserService,
+    OrderService
   ],
   declarations: []
 })
