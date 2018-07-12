@@ -35,7 +35,8 @@ const dataUsers: User[] = [
 
 const dataOrders: Order[] = [
   {id: 1, userid: 1, broodjeid:6},
-  {id: 2, userid: 2, broodjeid:10}
+  {id: 2, userid: 1, broodjeid:10},
+  {id: 3, userid: 2, broodjeid:14}
 ];
 
 @Injectable({

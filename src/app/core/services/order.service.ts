@@ -21,8 +21,8 @@ export class OrderService {
 
   getOrderbyUserId(userid: number){
 
-    const url = `${this.orderUrl}/${userid}`;
-
+    const url = `${this.orderUrl}/?userid=${userid}`;
+    console.log(url);
     return this.api.get(url);
   }
 
@@ -31,7 +31,6 @@ export class OrderService {
   }
 
   addOrder(order: Order): Observable<Order>{
-    console.log("add order was excecuted");
     return this.api.post(this.orderUrl, order).pipe(tap((order: Order) => console.log(`added order w/ id=${order.id}`)));
   }
 
