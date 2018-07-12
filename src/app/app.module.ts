@@ -9,6 +9,7 @@ import { SharedModule} from "./shared";
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserdashboardComponent } from './userdashboard/userdashboard.component';
+import { ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { UserdashboardComponent } from './userdashboard/userdashboard.component'
     CoreModule,
     SharedModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
