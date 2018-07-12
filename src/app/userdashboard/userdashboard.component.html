@@ -1,16 +1,22 @@
 <div>
 
   <h3>User info:</h3>
-
-  <label>Username:</label><br>
-  <label>{{user.username}}</label><br>
-  <label>Firstname:</label><br>
-  <label>{{user.firstname}}</label><br>
-  <label>Lastname:</label><br>
-  <label>{{user.lastname}}</label><br>
-  <label>Email:</label><br>
-  <label>{{user.email}}</label><br>
-  <label>Order:</label><label>{{order.id}}</label><br> <button>Edit order</button>
+  <div *ngIf="user">
+    <label>Username:</label><br>
+    <label>{{user.username}}</label><br>
+    <label>Firstname:</label><br>
+    <label>{{user.firstname}}</label><br>
+    <label>Lastname:</label><br>
+    <label>{{user.lastname}}</label><br>
+    <label>Email:</label><br>
+    <label>{{user.email}}</label><br>
+  </div>
+  <li *ngFor="let orderitem of userOrders">
+    <span class="broodjes" >{{orderitem.id}} :         </span>
+    <span class="broodjes"> {{orderitem.userid}}   </span>
+    <span class="broodjes"> {{orderitem.broodjeid}}   </span>
+    <button>Edit order</button>
+  </li>
 
 </div>
 

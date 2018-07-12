@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
+import { map, flatMap } from 'rxjs/operators'
 import {AuthService, OrderService} from '../core/services';
 import {User, Order} from '../core/models';
 
@@ -10,26 +12,42 @@ import {User, Order} from '../core/models';
 export class UserdashboardComponent implements OnInit {
 
   user: User;
-  order: Order;
-  orders: Order[];
+  userOrders: Order[] = [];
+  orders: Order[] = [];
 
   constructor(private authservice: AuthService, private orderservice: OrderService) { }
 
   ngOnInit() {
-
-    this.authservice.getUserInfo().subscribe((user_info: User) => this.user = user_info);
-    console.log("Userdashboard component userid: " + this.user.id);
-    this.orderservice.getOrderbyUserId(this.user.id).subscribe((order_info: Order) => this.order = order_info);
-
-    this.getOrders()
+    // Do both requests in parallel. Should be done by the resolver really
+    return forkJoin(
+      this.authservice.getUserInfo()
+        .pipe(
+          map((user: User) => {
+            console.log(user);
+            return this.user = user }),
+          // Return a new Observable to fetch the orders from this user
+          flatMap((user) => {
+            console.log(user);
+            return this.orderservice.getOrderbyUserId(this.user.id)}),
+          // Resolve the fetched order
+          map((order: Order[]) => {
+            console.log(order)
+            return this.userOrders = order})
+        ),
+        this.getOrders()
+    ).subscribe()
   }
 
 
 
-  getOrders(): void {
-    this.orderservice.getOrders().subscribe((orders) => {this.orders = orders;console.log(orders)});
-
-
+  getOrders() {
+    return this.orderservice.getOrders()
+      .pipe(
+        map((orders) => {
+          this.orders = orders;
+        console.log(orders)}
+        )
+      );
   }
 
 }
