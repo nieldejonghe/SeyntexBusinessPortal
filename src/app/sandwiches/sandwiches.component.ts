@@ -49,8 +49,10 @@ export class SandwichesComponent implements OnInit {
         startWith([]),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.broodService.getBroodjes(
-            this.sort.active, this.sort.direction, this.paginator.pageIndex);
+          // API does not support sorting and pagination yet
+          // return this.broodService.getBroodjes(
+          //   this.sort.active, this.sort.direction, this.paginator.pageIndex);
+          return this.broodService.getBroodjes()
         }),
         map(data => {
           // Flip flag to show that loading has finished.
