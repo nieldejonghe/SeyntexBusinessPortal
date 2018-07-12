@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import { Broodje } from '../core';
-import { BroodjeService} from "../core";
+import { Broodje, Order, User } from '../core';
+import { BroodjeService, OrderService, AuthService} from "../core";
 
 @Component({
   selector: 'app-broodjes',
@@ -22,9 +22,12 @@ export class BroodjesComponent implements OnInit {
   //The chosen sandwich from the list
   gekozenBroodje: Broodje = new Broodje();
 
+  order: Order = new Order();
+  user: User;
+
 
   // BroodjesService gebruiken in deze component
-  constructor(private broodService: BroodjeService) {
+  constructor(private broodService: BroodjeService, private orderService: OrderService, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -47,14 +50,6 @@ export class BroodjesComponent implements OnInit {
     throw new Error("No Sandwich selected!")
   }
 
-  //copy chosensandwich to new sandwich object
-  //let broodjeToOrder = Object.assign({}, this.gekozenBroodje);
-
-  //const optionsToCopy = ['comments', 'greens', 'type'];
-   // for (let opt of optionsToCopy) {
-    //      broodjeToOrder[opt] = this.broodjeOpties[opt]
-    //}
-
     //-------------------------------------------
 
     //copy chosen sandwich to new sandwich object the noob way
@@ -74,6 +69,26 @@ export class BroodjesComponent implements OnInit {
       //confirming broodjes order
       if(confirm( this.gekozenBroodje.name + ", " + typeText + ", " + greenText + " bestellen?")) {
         //account.addbroodje(broodje object);
+
+
+        //get id from user logged in
+        this.authService.getUserInfo().subscribe((user_info: User) => this.user = user_info);
+        let userid: number = this.user.id;
+        console.log('userid' + userid);
+
+        //get id from ordered sandwich
+        let broodjeid: number = this.gekozenBroodje.id;
+        console.log('broodje' + broodjeid);
+
+
+        //create order with collected information
+
+        this.order.userid = userid;
+        this.order.broodjeid = broodjeid;
+        console.log('order' + this.order);
+
+        this.orderService.addOrder(this.order)
+
       }
 
 

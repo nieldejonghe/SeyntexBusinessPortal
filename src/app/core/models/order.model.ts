@@ -1,9 +1,10 @@
 export class Order{
-
   id: number;
-  broodjeid: number;
   userid: number;
-  greens: string;
-  type: string;
-  comments: string;
+  broodjeid: number;
+
+
+  type?: boolean; //white = true , brown = false
+  greens?: boolean; //greens = true, nogreens = false
+  comments?: string;
 }

@@ -7,7 +7,7 @@ import {
   getStatusText
 } from "angular-in-memory-web-api";
 
-import { User, Broodje } from '../models';
+import { User, Broodje, Order } from '../models';
 
 /**
  * Data
@@ -33,6 +33,11 @@ const dataUsers: User[] = [
   { id: 2, username: 'admin', password: 'notadmin', firstname: 'Ad', lastname: 'Min', email: 'admin@test.be', token: 'abc'}
 ];
 
+const dataOrders: Order[] = [
+  {id: 1, userid: 1, broodjeid:6},
+  {id: 2, userid: 2, broodjeid:10}
+];
+
 @Injectable({
   providedIn: 'root'
 })
@@ -43,7 +48,8 @@ export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     return {
       broodjes:dataBroodjes,
-      users: dataUsers
+      users: dataUsers,
+      orders: dataOrders
     };
   }
 
