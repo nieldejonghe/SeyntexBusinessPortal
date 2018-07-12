@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError} from 'rxjs/internal/operators';
 
 import { environment} from '../../../environments/environment';
 
+const cudOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -43,26 +46,31 @@ export class ApiService {
 };
 
   get<T>(path: string, params: HttpParams = new HttpParams()): Observable<T> {
-      return this.http.get<T>(`${environment.api_url}${path}`, { params })
-        .pipe(catchError(this.handleError));
+      return this.http.get<T>(
+        `${environment.api_url}${path}`,
+        { params }
+      ).pipe(catchError(this.handleError));
   }
   put<T>(path: string, body: Object = {}): Observable<any> {
     return this.http.put<T>(
       `${environment.api_url}${path}`,
-      JSON.stringify(body)
+      body,
+      cudOptions
     ).pipe(catchError(this.handleError));
   }
 
   post<T>(path: string, body: Object = {}): Observable<any> {
     return this.http.post<T>(
       `${environment.api_url}${path}`,
-      JSON.stringify(body)
+      body,
+      cudOptions
     ).pipe(catchError(this.handleError));
   }
 
   delete<T>(path): Observable<any> {
     return this.http.delete<T>(
-      `${environment.api_url}${path}`
+      `${environment.api_url}${path}`,
+      cudOptions
     ).pipe(catchError(this.handleError));
   }
 }

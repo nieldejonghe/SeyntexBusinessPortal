@@ -12,7 +12,7 @@ import { User, Sandwich } from '../models';
 /**
  * Data
  */
-const dataBroodjes: Sandwich[] = [
+const dataSandwiches: Sandwich[] = [
   { id: 1, name: 'Atlantic', description: 'met grijze garnalen, plakjes zalm, heilbot, ei, komkommer en tomaat'},
   { id: 2, name: 'Ham', description: 'met ham'},
   { id: 3, name: 'Club Zalm', description: 'met kruidenkaas, gerookte zalm, tomaat en cressonette'},
@@ -41,7 +41,7 @@ const dataUsers: User[] = [
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     return {
-      broodjes:dataBroodjes,
+      sandwiches: dataSandwiches,
       users: dataUsers
     };
   }
@@ -81,7 +81,7 @@ export class InMemoryDataService implements InMemoryDbService {
     return reqInfo.utils.createResponse$(() => {
       console.log('Login override');
       const users = dataUsers.slice();  // Copy
-      const data: {username: string, password: string} = JSON.parse(reqInfo.utils.getJsonBody(reqInfo.req));
+      const data: {username: string, password: string} = reqInfo.utils.getJsonBody(reqInfo.req);
       const userData = users.find((user) => user.username == data.username && user.password == user.password);
 
       let options: ResponseOptions;
