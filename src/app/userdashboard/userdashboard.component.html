@@ -2,6 +2,7 @@
 
   <h3>User info:</h3>
 
+  <div *ngIf="user">
   <label>Username:</label><br>
   <label>{{user.username}}</label><br>
   <label>Firstname:</label><br>
@@ -10,17 +11,18 @@
   <label>{{user.lastname}}</label><br>
   <label>Email:</label><br>
   <label>{{user.email}}</label><br>
-  <label>Order:</label><label>{{order.id}}</label><br> <button>Edit order</button>
+  </div>
+
+  <ul>
+    <li *ngFor="let orderitem of orders">
+      <span>{{orderitem.id}} :         </span>
+      <span> {{orderitem.userid}}   </span>
+      <span> {{orderitem.broodjeid}}   </span>
+      <button>Edit order</button>
+    </li>
+  </ul>
 
 </div>
-
-<ul>
-  <li *ngFor="let orderitem of orders">
-    <span class="broodjes" >{{orderitem.id}} :         </span>
-    <span class="broodjes"> {{orderitem.userid}}   </span>
-    <span class="broodjes"> {{orderitem.broodjeid}}   </span>
-  </li>
-</ul>
 
 
 

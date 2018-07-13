@@ -24,7 +24,9 @@ export class AuthService {
   //BehaviourSubject to hold all information of currently logged in user
   user: User;
   private loggedInUserSubj = new BehaviorSubject<User>(this.user);
-  private loggedInUser$ = this.loggedInUserSubj.asObservable();
+
+  //so I can easily access observable in components
+  public loggedInUser$ = this.loggedInUserSubj.asObservable();
 
   constructor(private api: ApiService) { }
 
@@ -58,10 +60,10 @@ export class AuthService {
     return !!localStorage.getItem('loggedUser');
   }
 
-  getUserInfo(): Observable<User>{
 
-    return this.loggedInUser$;
-
+  //sync call for currentuser
+  getCurrentUser(): User{
+    return this.loggedInUserSubj.value
   }
 
 

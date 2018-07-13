@@ -71,8 +71,8 @@ export class BroodjesComponent implements OnInit {
         //account.addbroodje(broodje object);
 
 
-        //get id from user logged in
-        this.authService.getUserInfo().subscribe((user_info: User) => this.user = user_info);
+        //get id from user logged in via public variable instead of method
+        this.authService.loggedInUser$.subscribe((user_info: User) => this.user = user_info);
         let userid: number = this.user.id;
         console.log('userid' + userid);
 
@@ -83,8 +83,8 @@ export class BroodjesComponent implements OnInit {
 
         //create order with collected information
 
-        this.order.userid = userid
-        this.order.broodjeid = broodjeid
+        this.order.userid = userid;
+        this.order.broodjeid = broodjeid;
         console.log('order' + this.order);
 
         this.orderService.addOrder(this.order).subscribe();
