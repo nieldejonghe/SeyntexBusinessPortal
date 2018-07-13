@@ -7,12 +7,15 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { environment } from '../../environments/environment';
 import {
   ApiService,
-  AuthService,
   BroodjeService,
   InMemoryDataService,
   JwtService,
   UserService
 } from './services';
+import {
+  AuthGuard,
+  NoAuthGuard
+} from './guards';
 
 @NgModule({
   imports: [
@@ -23,11 +26,12 @@ import {
   ],
   providers: [
     ApiService,
-    AuthService,
     BroodjeService,
     InMemoryDataService,
     JwtService,
-    UserService
+    UserService,
+    AuthGuard,
+    NoAuthGuard
   ],
   declarations: []
 })
