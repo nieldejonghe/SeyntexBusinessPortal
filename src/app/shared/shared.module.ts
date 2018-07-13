@@ -10,7 +10,6 @@ import {
   MatSortModule,
   MatTableModule,
   MatCheckboxModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowAuthedDirective } from './directives';
 import { ListErrorsComponent } from './components';
 
@@ -21,7 +20,6 @@ import { ListErrorsComponent } from './components';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    BrowserAnimationsModule,
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
@@ -39,7 +37,6 @@ import { ListErrorsComponent } from './components';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    BrowserAnimationsModule,
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,

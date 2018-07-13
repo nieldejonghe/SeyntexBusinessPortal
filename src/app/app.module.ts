@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from "./core";
@@ -19,10 +21,11 @@ import { SandwichesModule } from './sandwiches/sandwiches.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CoreModule,
     SharedModule,
     AuthModule,
-    SandwichesModule,
+    // SandwichesModule,
     AppRoutingModule,
   ],
   providers: [],

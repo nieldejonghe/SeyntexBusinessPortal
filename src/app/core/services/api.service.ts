@@ -6,10 +6,6 @@ import { catchError} from 'rxjs/internal/operators';
 
 import { environment} from '../../../environments/environment';
 
-const cudOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
 @Injectable({
   providedIn: 'root'
 })
@@ -54,23 +50,20 @@ export class ApiService {
   put<T>(path: string, body: Object = {}): Observable<any> {
     return this.http.put<T>(
       `${environment.api_url}${path}`,
-      body,
-      cudOptions
+      body
     ).pipe(catchError(this.handleError));
   }
 
   post<T>(path: string, body: Object = {}): Observable<any> {
     return this.http.post<T>(
       `${environment.api_url}${path}`,
-      body,
-      cudOptions
+      body
     ).pipe(catchError(this.handleError));
   }
 
   delete<T>(path): Observable<any> {
     return this.http.delete<T>(
-      `${environment.api_url}${path}`,
-      cudOptions
+      `${environment.api_url}${path}`
     ).pipe(catchError(this.handleError));
   }
 }

@@ -47,6 +47,10 @@ export class InMemoryDataService implements InMemoryDbService {
   }
   // HTTP GET interceptor
   get(reqInfo: RequestInfo) {
+    const url = reqInfo.url;
+    if (url.endsWith('/user')) {
+      return this.retrieveUser(reqInfo)
+    }
     return undefined; // let the default GET handle all others
   }
   // HTTP PUT interceptor
@@ -74,6 +78,31 @@ export class InMemoryDataService implements InMemoryDbService {
     return resOptions;
   }
 
+  /**
+   * Get mocks
+   */
+  retrieveUser(reqInfo: RequestInfo) {
+    return reqInfo.utils.createResponse$(() => {
+      console.log('Fetch user by token');
+      const req:any = reqInfo.req as any;
+      const token:string = req.headers.get('Authorization');
+      const userData = dataUsers.find((user) => user.token == token);
+      let options: ResponseOptions;
+      if (userData) {
+        delete userData.password;  // Remove
+        options = {
+          body: this.wrapData(reqInfo, userData),
+          status: STATUS.OK
+        }
+      } else {
+        options = {
+          body: { error: `'User associated with token ${token} not found or token expired` },
+          status: STATUS.NOT_FOUND
+        }
+      }
+      return this.finishOptions(options, reqInfo);
+    })
+  }
   /**
    * Post Mocks
    */
