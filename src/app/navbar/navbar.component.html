@@ -5,29 +5,33 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-
-
-
-      <ul>
-        <li class="nav-item"><a routerLink="/">Home</a></li>
-        <li><a class="nav-link" routerLink="/broodjes">Broodjes bestellen</a></li>
-
-
-
-        <li class="nav-item" *ngIf="loggedin; else login">
-          <a class="nav-link" (click)="logout()">Logout</a>
-          <a class="nav-link" routerLink="/userdashboard">{{user.username}}</a>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/">Home
+          </a>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/broodjes">Broodjes bestellen
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="loggedin; else login">
+          <a class="nav-link"
+             (click)="logout()">Logout
+          </a>
+          <a class="nav-link"
+             routerLink="/userdashboard">{{user.username}}
+          </a>
+        </li>
         <ng-template #login>
           <li class="nav-item">
-          <a class="nav-link" routerLink="/login">Login</a>
+            <a class="nav-link"
+               routerLink="/login">Login
+            </a>
           </li>
         </ng-template>
-
       </ul>
-      
-
     </div>
   </div>
 </nav>
